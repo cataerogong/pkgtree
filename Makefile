@@ -1,10 +1,12 @@
-rebuild: clean build
+.PHONY: build rebuild clean
 
-build:
+build: pkgtree.py setup.py
 	python setup.py bdist_wheel --universal
 
+rebuild: clean build
+
 clean:
-	if exist __pycache__ rd /s /q __pycache__
-	if exist build rd /s /q build
-	if exist dist rd /s /q dist
-	if exist pkgtree.egg-info rd /s /q pkgtree.egg-info
+	-rd /s /q __pycache__
+	-rd /s /q build
+	-rd /s /q dist
+	-rd /s /q pkgtree.egg-info

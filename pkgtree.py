@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''
+"""
 A        B     C
 |\       |\   /|
 | \      | \ / |
@@ -29,13 +29,13 @@ You may get pip uninstall command of packages and dependencies like this:
 
 > pkgtree PACKAGE [PAKCAGE ...] -u -p
 
-'''
+"""
+
+__version__ = '0.5'
 
 import sys
 import argparse
 import pkg_resources
-
-__version__ = '0.5'
 
 _installed = set()
 _tops = set()  # {'setuptools', 'pip'}  # Installed with Python.
@@ -64,7 +64,7 @@ def _init():
 def _print_package_info(pkg, level, specs, bare, verbose, ispreserved, ismissed):
     infos = ['  '*level, pkg.project_name]
     if not bare:
-        infos.append(' == ' + pkg.version)
+        infos.append('==' + pkg.version)
         if verbose:
             infos.append(' [{}]'.format(
                 ','.join([op+ver for op, ver in specs]) if len(specs) else '*'))
@@ -95,7 +95,7 @@ def _print_package_info_recurse(key, args, level, specs):
         pkg = _DummyPkg()
         pkg.key = key
         pkg.project_name = key
-        pkg.version = '0'
+        pkg.version = '?'
         _print_package_info(pkg, level, specs, args.bare,
                             args.verbose, ispreserved, ismissed)
 
@@ -129,7 +129,7 @@ def print_pip_cmd(keys, args):
 
 
 def _get_pkgs_incl_deps(key, exs=set()):
-    ''' get package and its dependencies
+    """ get package and its dependencies
 
     Parameter:
         pkg: key of package
@@ -137,7 +137,7 @@ def _get_pkgs_incl_deps(key, exs=set()):
 
     Return: set
         set of keys
-    '''
+    """
     global _packages
 
     if (key in exs) or (key not in _packages):
